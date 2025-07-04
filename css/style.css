@@ -47,7 +47,7 @@ header h4 {
 
 #yes {
     left: 70%;
-    top: 40vh;
+    top: 40hv;
     background-color: #ff4d4d;
     color: white;
 }
@@ -89,20 +89,25 @@ header h4 {
 
     #no {
         left: 10% !important;
-        top: 60% !important;
+        top: 100% !important;
+        position: absolute;
+        transition: all 0.25s ease-in-out;
+
     }
 
     #yes {
         left: 60% !important;
-        top: 70% !important;
+        top: 100% !important;
     }
 
     /* Tiêu đề nhỏ lại */
     header h2 {
-        font-family: sans-serif;
-        font-size: 40px !important;
+        font-family: 'Pacifico', cursive;
+        font-size: 30px;
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
+        margin-Top: 30px;
+        color: cyan;
     }
 
     header h4 {
