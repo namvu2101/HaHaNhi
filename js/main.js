@@ -85,6 +85,9 @@ function firstQuestion() {
     background: '#fff url("img/iput-bg.jpg")',
     confirmButtonText: CONFIG.btnIntro,
     allowOutsideClick: false,
+    customClass: {
+    popup: 'swal-preline'
+  }
   }).then(() => {
     $(".content").fadeIn(200);
     setText();
