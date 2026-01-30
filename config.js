@@ -1,11 +1,10 @@
 const CONFIG = {
     titleWeb: "Gửi Nhi của tớ",
     introTitle: 'Hello Nhi Nhoa',
-    introDesc: `Cho anh một cốc trà đào
-    Tiện cho anh hỏi đường vào tym em`,
+    introDesc: `Cho anh một cốc trà đào \nTiện cho anh hỏi đường vào tym em`,
     btnIntro: 'Bấm đây nè',
     title: 'Anh giờ thì vẫn một mình nếu em cũng thế thì mình yêu nhau 🥰',
-    desc: 'Thoát ra là chấp nhận yêu tớ rồi nhé!!!',
+    desc: 'Thoát ra là chấp nhận yêu anh rồi nhé!!!',
     btnYes: 'Em đồng ý <33',
     btnNo: 'Không nha :3',
     question: 'Trên thế giới hơn 8 tỉ người mà sao em lại chọn anh <3',
