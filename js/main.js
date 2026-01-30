@@ -1,3 +1,6 @@
+let bgAudio;
+let typingIndex = 0;
+
 $(document).ready(function () {
   setTimeout(() => {
     firstQuestion();
@@ -18,11 +21,9 @@ function setText() {
   $("#no").text(CONFIG.btnNo);
 }
 
-/* ================= LAYOUT ================= */
+/* ================= LAYOUT DESKTOP ================= */
 function layoutButtons() {
-  const isMobile = $(window).width() <= 768;
-
-  if (isMobile) return; // mobile để CSS lo
+  if ($(window).width() <= 768) return;
 
   const yes = $("#yes");
   const no = $("#no");
@@ -42,6 +43,7 @@ function layoutButtons() {
 /* ================= INTRO ================= */
 function firstQuestion() {
   $(".content").hide();
+
   Swal.fire({
     title: CONFIG.introTitle,
     text: CONFIG.introDesc,
@@ -50,12 +52,15 @@ function firstQuestion() {
     imageHeight: 300,
     background: '#fff url("img/iput-bg.jpg")',
     confirmButtonText: CONFIG.btnIntro,
+    allowOutsideClick: false,
   }).then(() => {
-      // ✅ PLAY NHẠC SAU KHI CLICK INTRO
-    bgAudio = new Audio("sound/soundBG.mp3");
+
+    // play nhạc nền sau click
+    bgAudio = new Audio("sound/nhac.mp3");
     bgAudio.loop = true;
     bgAudio.volume = 0.6;
     bgAudio.play().catch(() => {});
+
     $(".content").fadeIn(200);
     setText();
     layoutButtons();
@@ -64,25 +69,34 @@ function firstQuestion() {
 
 /* ================= NO RUN ================= */
 function moveNoButton() {
-  const audio = new Audio("sound/Swish1.mp3");
-  audio.play();
-
   const no = $("#no");
-  const padding = 20;
+  const padding = 16;
 
-  const maxX = $(window).width() - no.outerWidth() - padding;
-  const maxY = $(window).height() * 0.6;
+  const btnW = no.outerWidth();
+  const btnH = no.outerHeight();
 
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
+  const maxX = window.innerWidth - btnW - padding;
+  const maxY = window.innerHeight - btnH - padding;
 
-  no.css({ left: x, top: y });
+  const x = Math.max(padding, Math.random() * maxX);
+  const y = Math.max(padding + 80, Math.random() * maxY);
+
+  no.css({
+    left: `${x}px`,
+    top: `${y}px`,
+    position: "absolute",
+  });
+
+  new Audio("sound/Swish1.mp3").play();
 }
 
-$("#no").on("mouseenter click", moveNoButton);
+$("#no").on("mouseenter click", function () {
+  if (window.innerWidth > 768) {
+    moveNoButton();
+  }
+});
 
 /* ================= AUTO TEXT ================= */
-let typingIndex = 0;
 function textGenerate() {
   const reply = CONFIG.reply;
   const input = $("#txtReason");
