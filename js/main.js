@@ -9,7 +9,7 @@ $(document).ready(function () {
     $("body").css({ overflow: "visible" });
   }, 600);
 
-  $(window).on("resize", layoutButtons);
+  $(window).on("resize", initLayout);
 });
 
 /* ================= SET TEXT ================= */
@@ -21,23 +21,54 @@ function setText() {
   $("#no").text(CONFIG.btnNo);
 }
 
-/* ================= LAYOUT DESKTOP ================= */
-function layoutButtons() {
-  if ($(window).width() <= 768) return;
-
+/* ================= INIT LAYOUT (QUAN TRỌNG) ================= */
+function initLayout() {
+  const isMobile = window.innerWidth <= 768;
   const yes = $("#yes");
   const no = $("#no");
 
+  if (isMobile) {
+    // MOBILE: để CSS xử lý
+    yes.css({
+      position: "relative",
+      left: "",
+      top: "",
+      transform: ""
+    });
+
+    no.css({
+      position: "relative",
+      left: "",
+      top: "",
+      transform: ""
+    });
+
+    return;
+  }
+
+  // ===== DESKTOP =====
+  yes.css("position", "absolute");
+  no.css("position", "absolute");
+
   const yesW = yes.outerWidth();
   const noW = no.outerWidth();
-  const spacing = 40;
+  const spacing = 60;
 
   const totalW = yesW + noW + spacing;
-  const xStart = ($(window).width() - totalW) / 2;
-  const y = $(window).height() * 0.55;
+  const startX = (window.innerWidth - totalW) / 2;
+  const y = window.innerHeight * 0.55;
 
-  yes.css({ left: xStart, top: y });
-  no.css({ left: xStart + yesW + spacing, top: y });
+  yes.css({
+    left: `${startX}px`,
+    top: `${y}px`,
+    transform: ""
+  });
+
+  no.css({
+    left: `${startX + yesW + spacing}px`,
+    top: `${y}px`,
+    transform: ""
+  });
 }
 
 /* ================= INTRO ================= */
@@ -55,22 +86,24 @@ function firstQuestion() {
     allowOutsideClick: false,
   }).then(() => {
 
-    // play nhạc nền sau click
-    bgAudio = new Audio("sound/nhac.mp3");
+    // Play nhạc nền sau khi user click
+    bgAudio = new Audio("sound/soundBG.mp3");
     bgAudio.loop = true;
     bgAudio.volume = 0.6;
     bgAudio.play().catch(() => {});
 
     $(".content").fadeIn(200);
     setText();
-    layoutButtons();
+    initLayout(); // ✅ init đúng thời điểm
   });
 }
 
-/* ================= NO RUN ================= */
+/* ================= NO CHẠY TRỐN (DESKTOP ONLY) ================= */
 function moveNoButton() {
+  if (window.innerWidth <= 768) return;
+
   const no = $("#no");
-  const padding = 16;
+  const padding = 20;
 
   const btnW = no.outerWidth();
   const btnH = no.outerHeight();
@@ -84,22 +117,19 @@ function moveNoButton() {
   no.css({
     left: `${x}px`,
     top: `${y}px`,
-    position: "absolute",
+    transform: ""
   });
 
   new Audio("sound/Swish1.mp3").play();
 }
 
-$("#no").on("mouseenter click", function () {
-  if (window.innerWidth > 768) {
-    moveNoButton();
-  }
-});
+$("#no").on("mouseenter click", moveNoButton);
 
 /* ================= AUTO TEXT ================= */
 function textGenerate() {
   const reply = CONFIG.reply;
   const input = $("#txtReason");
+
   input.val(reply.slice(0, typingIndex++));
   if (typingIndex <= reply.length) {
     setTimeout(textGenerate, 40);
@@ -112,10 +142,11 @@ $("#yes").click(function () {
 
   Swal.fire({
     title: CONFIG.question,
-    width: $(window).width() <= 768 ? "90%" : 900,
+    width: window.innerWidth <= 768 ? "90%" : 900,
     html: "<input id='txtReason' class='form-control' placeholder='Whyyy'>",
     background: '#fff url("img/iput-bg.jpg")',
     confirmButtonText: CONFIG.btnReply,
+    allowOutsideClick: false,
     didOpen: () => {
       typingIndex = 0;
       textGenerate();
