@@ -1,71 +1,66 @@
-/* Nền mờ blur */
+/* ================= NỀN ================= */
 #bg {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     opacity: 0.8;
     z-index: 0;
-    background-repeat: no-repeat;
-    background-image: url(../img/bg.webp);
-    background-size: cover;
-    background-position: center;
-    -webkit-filter: blur(4px);
+    background: url(../img/bg.webp) center / cover no-repeat;
+    filter: blur(4px);
 }
 
-/* Vùng nội dung */
+/* ================= CONTENT ================= */
 .content {
     position: relative;
     z-index: 3;
     text-align: center;
+    min-height: 100vh;
+    padding-top: 60px;
 }
 
-/* Tiêu đề */
+/* ================= TIÊU ĐỀ ================= */
 header h2 {
     font-family: 'Pacifico', cursive;
-    font-size: 80px;
-    text-align: center;
-    margin-bottom: 30px;
+    font-size: 72px;
+    margin-bottom: 20px;
     color: cyan;
 }
 
 header h4 {
     font-family: 'Pacifico', cursive;
-    text-align: center;
+    font-size: 28px;
     color: chartreuse;
 }
 
-/* Nút YES/NO */
-#yes, #no {
+/* ================= NÚT ================= */
+#yes,
+#no {
     position: absolute;
-    display: inline-block;
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 20px;
-    transition: all 0.3s ease-out;
+    transition: all 0.3s ease;
 }
 
 #yes {
-    left: 70%;
-    top: 40hv;
+    left: 60%;
+    top: 50vh;
     background-color: #ff4d4d;
-    color: white;
+    color: #fff;
 }
 
 #no {
-    left: 35%;
-    top: 40vh;
+    left: 30%;
+    top: 50vh;
     background-color: #17a2b8;
-    color: white;
+    color: #fff;
 }
 
-/* SweetAlert2 popup */
+/* ================= SWEETALERT ================= */
 .swal2-image {
     object-fit: contain;
 }
 
 .swal2-title,
-.swal2-content {
+.swal2-html-container {
     color: azure !important;
 }
 
@@ -73,65 +68,37 @@ header h4 {
     border-radius: 15px !important;
 }
 
-.swal2-backdrop-show {
-    background-size: 200px 100px !important;
-}
-
-/* ===================== RESPONSIVE ===================== */
+/* ================= RESPONSIVE MOBILE ================= */
 @media (max-width: 768px) {
-    /* Nút YES/NO */
-    #yes, #no {
-        position: absolute;
-        width: 120px !important;
-        font-size: 14px !important;
-        padding: 6px 12px;
-    }
 
-    #no {
-        left: 10% !important;
-        top: 100% !important;
-        position: absolute;
-        transition: all 0.25s ease-in-out;
-
-    }
-
-    #yes {
-        left: 60% !important;
-        top: 100% !important;
-    }
-
-    /* Tiêu đề nhỏ lại */
     header h2 {
-        font-family: 'Pacifico', cursive;
-        font-size: 30px;
-        text-align: center;
-        margin-bottom: 30px;
-        margin-Top: 30px;
-        color: cyan;
+        font-size: 32px;
+        margin-top: 20px;
     }
 
     header h4 {
-        font-family: 'Pacifico';
-        font-size: 16px !important;
-        text-align: center;
-        padding: 15px;
-    }
-
-    /* Input trong popup */
-    input#txtReason {
         font-size: 16px;
-        padding: 10px;
-        width: 100% !important;
+        padding: 0 15px;
     }
 
-    /* Popup ngắn lại */
-    .swal2-popup {
-        width: 90% !important;
+    #yes,
+    #no {
+        position: relative;
+        display: inline-block;
+        margin: 10px;
+        width: 120px;
+        font-size: 14px;
+    }
+
+    .content {
+        padding-top: 40px;
     }
 }
 
+/* ================= DESKTOP ================= */
 @media (min-width: 769px) {
-    #yes, #no {
+    #yes,
+    #no {
         width: auto;
     }
 }
