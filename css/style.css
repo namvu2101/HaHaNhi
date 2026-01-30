@@ -2,10 +2,21 @@
 #bg {
     position: fixed;
     inset: 0;
-    opacity: 0.8;
     z-index: 0;
-    background: url(../img/bg.webp) center / cover no-repeat;
+    overflow: hidden;
+}
+
+/* background + blur tách riêng để không zoom ảnh */
+#bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../img/bg.webp");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     filter: blur(4px);
+    transform: scale(1.05);
 }
 
 /* ================= CONTENT ================= */
@@ -37,19 +48,16 @@ header h4 {
     position: absolute;
     padding: 12px 24px;
     font-size: 20px;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
+    cursor: pointer;
 }
 
 #yes {
-    left: 60%;
-    top: 50vh;
     background-color: #ff4d4d;
     color: #fff;
 }
 
 #no {
-    left: 30%;
-    top: 50vh;
     background-color: #17a2b8;
     color: #fff;
 }
@@ -70,6 +78,12 @@ header h4 {
 
 /* ================= RESPONSIVE MOBILE ================= */
 @media (max-width: 768px) {
+
+    #bg::before {
+        background-size: contain;
+        filter: blur(2px);
+        transform: scale(1);
+    }
 
     header h2 {
         font-size: 32px;
@@ -92,13 +106,5 @@ header h4 {
 
     .content {
         padding-top: 40px;
-    }
-}
-
-/* ================= DESKTOP ================= */
-@media (min-width: 769px) {
-    #yes,
-    #no {
-        width: auto;
     }
 }
