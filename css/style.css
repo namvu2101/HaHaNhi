@@ -80,9 +80,9 @@ header h4 {
 @media (max-width: 768px) {
 
     #bg::before {
-        background-size: contain;
+        background-size: cover;   /* ✅ KHÔNG thu nhỏ */
         filter: blur(2px);
-        transform: scale(1);
+        transform: scale(1.08);   /* tránh viền trắng */
     }
 
     header h2 {
