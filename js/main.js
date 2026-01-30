@@ -23,6 +23,7 @@ function setText() {
 
 /* ================= INIT LAYOUT (QUAN TRỌNG) ================= */
 function initLayout() {
+  new Audio("sound/nhac.mp3").play();
   const isMobile = window.innerWidth <= 768;
   const yes = $("#yes");
   const no = $("#no");
@@ -85,13 +86,6 @@ function firstQuestion() {
     confirmButtonText: CONFIG.btnIntro,
     allowOutsideClick: false,
   }).then(() => {
-
-    // Play nhạc nền sau khi user click
-    bgAudio = new Audio("sound/soundBG.mp3");
-    bgAudio.loop = true;
-    bgAudio.volume = 0.6;
-    bgAudio.play().catch(() => {});
-
     $(".content").fadeIn(200);
     setText();
     initLayout(); // ✅ init đúng thời điểm
