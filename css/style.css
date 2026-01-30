@@ -75,6 +75,10 @@ header h4 {
 .swal2-popup {
     border-radius: 15px !important;
 }
+.swal-preline {
+  white-space: pre-line;
+}
+
 
 /* ================= RESPONSIVE MOBILE ================= */
 @media (max-width: 768px) {
