@@ -94,10 +94,8 @@ function firstQuestion() {
 
 /* ================= NO CHẠY TRỐN (DESKTOP ONLY) ================= */
 function moveNoButton() {
-  if (window.innerWidth <= 768) return;
-
   const no = $("#no");
-  const padding = 20;
+  const padding = 16;
 
   const btnW = no.outerWidth();
   const btnH = no.outerHeight();
@@ -106,9 +104,13 @@ function moveNoButton() {
   const maxY = window.innerHeight - btnH - padding;
 
   const x = Math.max(padding, Math.random() * maxX);
-  const y = Math.max(padding + 80, Math.random() * maxY);
+  const y = Math.max(
+    padding + document.querySelector("header").offsetHeight,
+    Math.random() * maxY
+  );
 
   no.css({
+    position: "absolute",
     left: `${x}px`,
     top: `${y}px`,
     transform: ""
